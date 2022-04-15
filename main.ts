@@ -316,12 +316,12 @@ namespace mbit_输入类 {
     //% weight=100
     //% blockGap=10
     //% color="#808080"
-    export function Rocker(pin1: AnalogPin, pin2: AnalogPin, pin3: DigitalPin, value: enRocker): boolean {
+    export function Rocker(pin1: AnalogPin, pin2: AnalogPin, pin3:AnalogPin, value: enRocker): boolean {
 
         pins.setPull(pin3, PinPullMode.PullUp);
         let x = pins.analogReadPin(pin1);
         let y = pins.analogReadPin(pin2);
-        let z = pins.digitalReadPin(pin3);
+        let z = pins.analogReadPin(pin3);
         let now_state = enRocker.Nostate;
 
         if (x < 100) // 上
@@ -346,7 +346,7 @@ namespace mbit_输入类 {
                 now_state = enRocker.Left;
             }
         }
-        if (z == 0)
+        if (z <= 20)
             now_state = enRocker.Press;
         if (now_state == value)
             return true;
